@@ -1,18 +1,27 @@
-## Getting Started
+## Type of Object (Class)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+```
 
-## Folder Structure
+public class Bia{
 
-The workspace contains two folders by default, where:
+    //Bien thanh vien
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+    public String nhanbia;
+    public String lapbia;
+    public String chatlong;
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+    //Phương thuc hoat dong: Methods: operation of object
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+    public String layNhanBia(){
+          return nhanbia;
+    }
 
-## Dependency Management
+    public String ganNhanBia(String nhan){
+        nhanbia = nhan;
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+        return nhanbia;
+    }
+
+}
+
+```
