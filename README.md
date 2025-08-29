@@ -29,11 +29,11 @@ Cụ thể:
 
 Sơ đồ khối yêu cầu
 
-1.1 UML Class Diagram
+### 1.1 UML Class Diagram
 <img width="1137" height="614" alt="image" src="https://github.com/user-attachments/assets/6e196cd9-87b5-4806-b102-5fc38e7b7cd1" />
 
 
-1.2 UML Sequence Diagram
+### 1.2 UML Sequence Diagram
 <img width="968" height="576" alt="image" src="https://github.com/user-attachments/assets/0dbd54e7-e3c6-4ebc-b3e9-e489cc95ba6f" />
 
 
