@@ -30,7 +30,7 @@ Cụ thể:
 Sơ đồ khối yêu cầu
 
 ### 1.1 UML Class Diagram
-<img width="998" height="540" alt="image" src="https://github.com/user-attachments/assets/92217746-998e-4348-83ff-d710f59479b7" />
+<img width="998" height="540" alt="image" src="https://github.com/user-attachments/assets/2912acb9-1149-486f-a736-b40c866ff92f" />
 
 
 
