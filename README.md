@@ -35,7 +35,5 @@
 
 
 
-
-
 ### 1.2 UML Sequence Diagram
 <img width="968" height="576" alt="image" src="https://github.com/user-attachments/assets/0dbd54e7-e3c6-4ebc-b3e9-e489cc95ba6f" />
