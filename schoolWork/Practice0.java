@@ -1,4 +1,4 @@
-package school_work;
+package schoolWork;
 
 public class Practice0 {
     public static void PrintOutThings() {
