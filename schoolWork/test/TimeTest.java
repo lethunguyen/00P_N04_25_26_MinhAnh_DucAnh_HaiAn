@@ -1,6 +1,6 @@
 package schoolWork.test;
 
-import src.Time;
+import schoolWork.src.Time;
 
 public class TimeTest {
     public static void Tests() {

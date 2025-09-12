@@ -1,6 +1,6 @@
 package schoolWork.test;
 
-import  src.Recursion;
+import schoolWork.src.Recursion;
 
 public class RecursionTest {
     public static void Tests() {
@@ -13,7 +13,7 @@ public class RecursionTest {
         int n = 15;
         System.out.println("day" + n + "so dau tien");
         for(int i = 0; i < n; i++) {
-            System.out.print(Recursion.fib(n) + " ");
+            System.out.print(Recursion.fib(i) + " ");
         }
         System.out.println();
     }
