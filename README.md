@@ -31,7 +31,8 @@
 
 
 ### 1.1 UML Class Diagram
-<img width="998" height="540" alt="image" src="https://github.com/user-attachments/assets/2912acb9-1149-486f-a736-b40c866ff92f" />
+<img width="985" height="680" alt="image" src="https://github.com/user-attachments/assets/899e6e8a-b909-4ff1-8880-b9e35ca5dfbe" />
+
 
 
 
