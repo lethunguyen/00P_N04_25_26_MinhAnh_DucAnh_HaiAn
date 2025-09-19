@@ -35,3 +35,13 @@
 ### code trong Branch bao gồm
 <img width="652" height="343" alt="image" src="https://github.com/user-attachments/assets/c0a379e1-e2f9-4056-ac24-cfcaa157704a" />
 
+
+
+### Activity diagram for user
+<img width="1465" height="456" alt="image" src="https://github.com/user-attachments/assets/a0e52d3c-3293-471e-af5b-0b8a87edd773" />
+
+
+
+### Activity diagram for book
+<img width="1476" height="461" alt="image" src="https://github.com/user-attachments/assets/d1c5b076-6085-473a-ad78-0b12c75ed8c6" />
+
