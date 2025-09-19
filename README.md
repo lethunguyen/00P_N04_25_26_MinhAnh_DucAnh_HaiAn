@@ -33,4 +33,5 @@
 
 
 ### code trong Branch bao gồm
-[UML Class-Copy of Copy of Page-1.pdf](https://github.com/user-attachments/files/22421929/UML.Class-Copy.of.Copy.of.Page-1.pdf)
+<img width="652" height="343" alt="image" src="https://github.com/user-attachments/assets/c0a379e1-e2f9-4056-ac24-cfcaa157704a" />
+
