@@ -38,3 +38,11 @@
 
 ### 1.2 UML Sequence Diagram
 <img width="968" height="576" alt="image" src="https://github.com/user-attachments/assets/0dbd54e7-e3c6-4ebc-b3e9-e489cc95ba6f" />
+
+## Sơ đồ thuật toán
+
+### 2.1 CRUD Activity Diagram cho Guest
+
+| Create | Read | Update | Delete |
+|--------|------|--------|--------|
+| <img src="https://github.com/user-attachments/assets/de5434c6-c9be-42c9-8ce1-a40fd3882d07" width="200"/> | <img src="https://github.com/user-attachments/assets/968beab7-4d8a-4619-90da-3e289786a3c1" width="200"/> | <img src="https://github.com/user-attachments/assets/9d067b8d-b731-4f6f-ae9d-81b9c49eb14d" width="200"/> | <img src="https://github.com/user-attachments/assets/f3211aae-c2fa-4855-940e-395f7cca30d3" width="200"/> |
