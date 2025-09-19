@@ -1,7 +1,7 @@
 package UserAndBook.src;
 
-import UserAndBook.test.UserTest;
-import UserAndBook.test.BookTest;
+import UserAndBook.test.*;
+//import UserAndBook.test.BookTest;
 
 public class Main {
     public static void main(String[] args) {

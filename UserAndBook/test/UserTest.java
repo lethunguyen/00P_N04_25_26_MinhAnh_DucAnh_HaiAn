@@ -3,7 +3,7 @@ package UserAndBook.test;
 import UserAndBook.src.User;
 
 public class UserTest {
-    public static void Tests() {
+    public static void runTests() {
         System.out.println("===== BẮT ĐẦU KIỂM THỬ USER =====");
 
         // Test đăng ký
