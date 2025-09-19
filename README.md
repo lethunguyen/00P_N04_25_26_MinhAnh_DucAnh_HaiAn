@@ -8,12 +8,12 @@
 
 ---
 # Project: Xây dựng ứng dụng quản lý thư viện.
-Yêu cầu chính:
+### Yêu cầu chính:
 - Giao diện <b>Java Spring Boot</b>.
 - Có chức năng quản lý thư viện, người đọc.
 - Và các chức năng khác.
 
-Cụ thể: 
+### Cụ thể: 
 - Có chức năng quản lý nhân viên: 
   + Thêm, sửa, xoá nhân viên.
   + Liệt kê thông tin về nhân viên, có thể lọc ra các nhân viên theo chức vụ.
@@ -27,12 +27,22 @@ Cụ thể:
   + Mượn/trả sách nhanh gọn trên hệ thống.
   + Hỗ trợ gia hạn thời gian mượn sách.
 
-Sơ đồ khối yêu cầu
+## Sơ đồ khối yêu cầu
+
 
 ### 1.1 UML Class Diagram
-<img width="998" height="540" alt="image" src="https://github.com/user-attachments/assets/2912acb9-1149-486f-a736-b40c866ff92f" />
+<img width="985" height="680" alt="image" src="https://github.com/user-attachments/assets/899e6e8a-b909-4ff1-8880-b9e35ca5dfbe" />
+
 
 
 
 ### 1.2 UML Sequence Diagram
 <img width="968" height="576" alt="image" src="https://github.com/user-attachments/assets/0dbd54e7-e3c6-4ebc-b3e9-e489cc95ba6f" />
+
+## Sơ đồ thuật toán
+
+### 2.1 CRUD Activity Diagram của Guest
+
+| Create | Read | Update | Delete |
+|--------|------|--------|--------|
+| <img src="https://github.com/user-attachments/assets/de5434c6-c9be-42c9-8ce1-a40fd3882d07" width="200"/> | <img src="https://github.com/user-attachments/assets/968beab7-4d8a-4619-90da-3e289786a3c1" width="200"/> | <img src="https://github.com/user-attachments/assets/9d067b8d-b731-4f6f-ae9d-81b9c49eb14d" width="200"/> | <img src="https://github.com/user-attachments/assets/f3211aae-c2fa-4855-940e-395f7cca30d3" width="200"/> |
