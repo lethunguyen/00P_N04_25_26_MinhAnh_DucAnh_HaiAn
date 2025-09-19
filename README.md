@@ -41,7 +41,7 @@
 
 ## Sơ đồ thuật toán
 
-### 2.1 CRUD Activity Diagram cho Guest
+### 2.1 CRUD Activity Diagram của Guest
 
 | Create | Read | Update | Delete |
 |--------|------|--------|--------|
