@@ -1,5 +1,8 @@
+package Controller;
 
 import java.util.ArrayList;
+
+import Model.Employee;
 
 public class EmployeeManager {
     private ArrayList<Employee> employees = new ArrayList<>();

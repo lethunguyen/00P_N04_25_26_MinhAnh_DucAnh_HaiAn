@@ -1,5 +1,9 @@
+package Test;
+import Controller.EmployeeManager;
+import Model.Employee;
+
 public class EmployeeTest {
-    public static void main(String[] args) {
+    public static void test() {
         EmployeeManager manager = new EmployeeManager();
 
         // CREATE
