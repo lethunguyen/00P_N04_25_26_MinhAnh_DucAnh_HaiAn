@@ -1,6 +1,6 @@
-package schoolWork.test;
+package UserAndBook.test;
 
-import schoolWork.src.User;
+import UserAndBook.src.User;
 
 public class UserTest {
     public static void Tests() {
