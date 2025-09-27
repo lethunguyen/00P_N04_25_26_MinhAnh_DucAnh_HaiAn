@@ -1,29 +1,71 @@
 import java.util.Scanner;
 
+import Controller.GuestCRUD;
+import Model.Guest;
+
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        GuestCRUD dao = new GuestCRUD();
 
-        // Nhập thông tin khách hàng
-        System.out.print("Nhập tên khách hàng: ");
-        String ten = sc.nextLine();
+        while (true) {
+            System.out.println("\n===== GUEST MANAGEMENT =====");
+            System.out.println("1. Add guest");
+            System.out.println("2. View all guests");
+            System.out.println("3. Update guest");
+            System.out.println("4. Delete guest");
+            System.out.println("5. Exit");
+            System.out.print("Choose option: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
 
-        System.out.print("Nhập mã khách hàng: ");
-        String ma = sc.nextLine();
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Enter name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter ID: ");
+                    String id = sc.nextLine();
+                    System.out.print("Enter phone: ");
+                    String phone = sc.nextLine();
+                    System.out.print("Enter address: ");
+                    String address = sc.nextLine();
 
-        System.out.print("Nhập số điện thoại: ");
-        String sdt = sc.nextLine();
+                    Guest g = new Guest(name, id, phone, address);
+                    dao.add(g);
+                    System.out.println("✅ Guest added!");
+                }
+                case 2 -> {
+                    System.out.println("\n--- GUEST LIST ---");
+                    for (Guest g : dao.getAll()) {
+                        System.out.println(g);
+                    }
+                }
+                case 3 -> {
+                    System.out.print("Enter ID to update: ");
+                    String id = sc.nextLine();
+                    System.out.print("New name: ");
+                    String newName = sc.nextLine();
+                    System.out.print("New phone: ");
+                    String newPhone = sc.nextLine();
+                    System.out.print("New address: ");
+                    String newAddress = sc.nextLine();
 
-        System.out.print("Nhập địa chỉ: ");
-        String diaChi = sc.nextLine();
-
-        // Tạo đối tượng khách hàng từ dữ liệu nhập vào
-        KhachHang kh = new KhachHang(ten, ma, sdt, diaChi);
-
-        // In ra để kiểm tra
-        System.out.println("\n--- Thông tin khách hàng ---");
-        System.out.println(kh);
-
-        sc.close();
+                    dao.update(id, newName, newPhone, newAddress);
+                    System.out.println("✅ Guest updated!");
+                }
+                case 4 -> {
+                    System.out.print("Enter ID to delete: ");
+                    String id = sc.nextLine();
+                    dao.delete(id);
+                    System.out.println("✅ Guest deleted!");
+                }
+                case 5 -> {
+                    System.out.println("👋 Exiting program!");
+                    sc.close();
+                    return;
+                }
+                default -> System.out.println("❌ Invalid choice!");
+            }
+        }
     }
 }
