@@ -42,9 +42,7 @@
 ## Sơ đồ thuật toán
 
 ### 2.1 CRUD Activity Diagram của Guest
-
 <img width="1402" height="506" alt="image" src="https://github.com/user-attachments/assets/9fc498d1-2ce9-4475-891a-fce52c16a130" />
-
 
 ### 2.2 CRUD Activity Diagram của User
 <img width="1465" height="456" alt="image" src="https://github.com/user-attachments/assets/a0e52d3c-3293-471e-af5b-0b8a87edd773" />
