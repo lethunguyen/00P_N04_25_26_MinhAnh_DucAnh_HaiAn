@@ -1,4 +1,7 @@
+package Controller;
 import java.util.*;
+
+import Model.Guest;
 
 public class GuestCRUD {
     private List<Guest> guests = new ArrayList<>();

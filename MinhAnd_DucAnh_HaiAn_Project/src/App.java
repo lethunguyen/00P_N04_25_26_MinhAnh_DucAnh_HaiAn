@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import Controller.GuestCRUD;
+import Model.Guest;
+
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
