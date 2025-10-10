@@ -42,7 +42,12 @@
 ## Sơ đồ thuật toán
 
 ### 2.1 CRUD Activity Diagram của Guest
+<img width="1402" height="506" alt="image" src="https://github.com/user-attachments/assets/9fc498d1-2ce9-4475-891a-fce52c16a130" />
 
-| Create | Read | Update | Delete |
-|--------|------|--------|--------|
-| <img src="https://github.com/user-attachments/assets/de5434c6-c9be-42c9-8ce1-a40fd3882d07" width="200"/> | <img src="https://github.com/user-attachments/assets/968beab7-4d8a-4619-90da-3e289786a3c1" width="200"/> | <img src="https://github.com/user-attachments/assets/9d067b8d-b731-4f6f-ae9d-81b9c49eb14d" width="200"/> | <img src="https://github.com/user-attachments/assets/f3211aae-c2fa-4855-940e-395f7cca30d3" width="200"/> |
+### 2.2 CRUD Activity Diagram của User
+<img width="1465" height="456" alt="image" src="https://github.com/user-attachments/assets/a0e52d3c-3293-471e-af5b-0b8a87edd773" />
+
+### 2.3 CRUD Activity Diagram của Book
+<img width="1476" height="461" alt="image" src="https://github.com/user-attachments/assets/d1c5b076-6085-473a-ad78-0b12c75ed8c6" />
+
+
