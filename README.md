@@ -1,208 +1,53 @@
-# Java Spring io With Codesapces
-# Project: Use Codespaces with Java Spring io and mysql database Aiven.io
+# 00P_N04_25_26_MinhAnh_DucAnh_HaiAn
+# Thành viên:
+| Họ và tên          | MSSV        |  Khoá  | Ngành |      Hệ     |
+|--------------------|-------------|--------|-------|-------------|
+| Nguyễn Minh Ánh    |  23010718   |  K17   |  CNTT |  Chính quy  |
+| Nguyễn Lê Đức Anh  |  23010246   |  K17   |  CNTT |  Chính quy  |
+| Vũ Hải An          |  23011987   |  K17   |  CNTT |  Chính quy  |
 
-# Codespace 
+---
+# Project: Xây dựng ứng dụng quản lý thư viện.
+### Yêu cầu chính:
+- Giao diện <b>Java Spring Boot</b>.
+- Có chức năng quản lý thư viện, người đọc.
+- Và các chức năng khác.
 
-For convinience of everywhere coding and bugging
+### Cụ thể: 
+- Có chức năng quản lý nhân viên: 
+  + Thêm, sửa, xoá nhân viên.
+  + Liệt kê thông tin về nhân viên, có thể lọc ra các nhân viên theo chức vụ.
+- Có chức năng quản lý sách:
+  + Thêm, sửa, xoá sách.
+  + Liệt kê thông tin về sách, có thể lọc sách theo nhiều cách (Ex: thể loại, chuyên ngành, ngôn ngữ, năm phát hành...)
+- Có chức năng quản lý khách hàng - người đọc:
+  + Thêm, xoá, sửa khách hàng.
+  + Liệt kê các thông tin về khách hàng, phân loại và tìm khách hàng theo nhiều cách (Ex: tên, tuổi, địa chỉ, sách mượn,...)
+- Có chức năng cho mượn/trả sách:
+  + Mượn/trả sách nhanh gọn trên hệ thống.
+  + Hỗ trợ gia hạn thời gian mượn sách.
 
-<img src = "img/IMG_7655.PNG">
-
-# Resultset and ArrayList
-
-
-<img src = "img/IMG_7654.PNG">
-
-:spring_version: current
-:Controller: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/stereotype/Controller.html
-:RequestParam: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html
-:View: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/servlet/View.html
-:Model: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/ui/Model.html
-:toc:
-:icons: font
-:source-highlighter: prettify
-:project_id: gs-serving-web-content
-
-This guide walks you through the process of creating a "`Hello, World`" web site with
-Spring.
-
-## What You Will Build
-
-You will build an application that has a static home page and that will also accept HTTP
-GET requests at: `http://localhost:8080/greeting`.
-
-It will respond with a web page that displays HTML. The body of the HTML will contain a
-greeting: "`Hello, World!`"
-
-You can customize the greeting with an optional `name` parameter in the query string. The
-URL might then be `http://localhost:8080/greeting?name=User`.
-
-The `name` parameter value overrides the default value of `World` and is reflected in the
-response by the content changing to "`Hello, User!`"
-
-## What You Need
-
-:java_version: 17
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/prereq_editor_jdk_buildtools.adoc[]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/how_to_complete_this_guide.adoc[]
-
-[[scratch]]
-== Starting with Spring Initializr
-
-You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=serving-web-content&name=serving-web-content&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.serving-web-content&dependencies=web,thymeleaf,devtools[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
-
-To manually initialize the project:
-
-. Navigate to https://start.spring.io.
-This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
-. Click *Dependencies* and select *Spring Web*, *Thymeleaf*, and *Spring Boot DevTools*.
-. Click *Generate*.
-. Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
-
-NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
-
-NOTE: You can also fork the project from Github and open it in your IDE or other editor.
-
-[[initial]]
-## Create a Web Controller
-
-In Spring's approach to building web sites, HTTP requests are handled by a controller. You
-can easily identify the controller by the {Controller}[`@Controller`] annotation. In the
-following example, `GreetingController` handles GET requests for `/greeting` by returning
-the name of a {View}[`View`] (in this case, `greeting`). A `View` is responsible for
-rendering the HTML content. The following listing (from
-`src/main/java/com/example/servingwebcontent/GreetingController.java`) shows the
-controller:
+## Sơ đồ khối yêu cầu
 
 
-[source,java]
-```
-include::complete/src/main/java/com/example/servingwebcontent/GreetingController.java[]
-```
+### 1.1 UML Class Diagram
+<img width="985" height="680" alt="image" src="https://github.com/user-attachments/assets/899e6e8a-b909-4ff1-8880-b9e35ca5dfbe" />
 
 
-This controller is concise and simple, but there is plenty going on. We break it down step
-by step.
 
-The `@GetMapping` annotation ensures that HTTP GET requests to `/greeting` are mapped to
-the `greeting()` method.
 
-{RequestParam}[`@RequestParam`] binds the value of the query string parameter `name` into
-the `name` parameter of the `greeting()` method. This query string parameter is not
-`required`. If it is absent in the request, the `defaultValue` of `World` is used. The
-value of the `name` parameter is added to a {Model}[`Model`] object, ultimately making it
-accessible to the view template.
+### 1.2 UML Sequence Diagram
+<img width="968" height="576" alt="image" src="https://github.com/user-attachments/assets/0dbd54e7-e3c6-4ebc-b3e9-e489cc95ba6f" />
 
-The implementation of the method body relies on a view technology (in this case,
-http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html[Thymeleaf]) to perform
-server-side rendering of the HTML. Thymeleaf parses the `greeting.html` template and
-evaluates the `th:text` expression to render the value of the `${name}` parameter that was
-set in the controller.The following listing (from
-`src/main/resources/templates/greeting.html`) shows the `greeting.html` template:
+## Sơ đồ thuật toán
 
-====
-[source,html]
-----
-include::complete/src/main/resources/templates/greeting.html[]
-----
-====
+### 2.1 CRUD Activity Diagram của Guest
+<img width="1402" height="506" alt="image" src="https://github.com/user-attachments/assets/9fc498d1-2ce9-4475-891a-fce52c16a130" />
 
-TIP: Make sure you have Thymeleaf on your classpath (artifact co-ordinates: `org.springframework.boot:spring-boot-starter-thymeleaf`). It is already there in the "initial" and "complete" samples in Github.
+### 2.2 CRUD Activity Diagram của User
+<img width="1465" height="456" alt="image" src="https://github.com/user-attachments/assets/a0e52d3c-3293-471e-af5b-0b8a87edd773" />
 
-== Spring Boot Devtools
+### 2.3 CRUD Activity Diagram của Book
+<img width="1476" height="461" alt="image" src="https://github.com/user-attachments/assets/d1c5b076-6085-473a-ad78-0b12c75ed8c6" />
 
-A common feature of developing web applications is coding a change, restarting your
-application, and refreshing the browser to view the change. This entire process can eat up
-a lot of time. To speed up this refresh cycle, Spring Boot offers with a handy module
-known as
-http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-devtools[spring-boot-devtools].
-Spring Boot Devtools:
 
-* Enables
-http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-hotswapping[hot swapping].
-* Switches template engines to disable caching.
-* Enables LiveReload to automatically refresh the browser.
-* Other reasonable defaults based on development instead of production.
-
-== Run the Application
-
-The Spring Initializr creates an application class for you. In this case, you need not
-further modify the class provided by the Spring Initializr. The following listing (from
-`src/main/java/com/example/servingwebcontent/ServingWebContentApplication.java`) shows the
-application class:
-
-====
-[source,java]
-----
-include::complete/src/main/java/com/example/servingwebcontent/ServingWebContentApplication.java[]
-----
-====
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/spring-boot-application-new-path.adoc[]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_subhead.adoc[]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_with_both.adoc[]
-
-Logging output is displayed. The application should be up and running within a few seconds.
-
-== Test the Application
-
-Now that the web site is running, visit `http://localhost:8080/greeting`, where you should
-see "`Hello, World!`"
-
-Provide a `name` query string parameter by visiting
-`http://localhost:8080/greeting?name=User`. Notice how the message changes from
-"`Hello, World!`" to "`Hello, User!`":
-
-This change demonstrates that the {RequestParam}[`@RequestParam`] arrangement in
-`GreetingController` is working as expected. The `name` parameter has been given a default
-value of `World`, but it can be explicitly overridden through the query string.
-
-== Add a Home Page
-
-Static resources, including HTML and JavaScript and CSS, can be served from your Spring
-Boot application by dropping them into the right place in the source code. By default,
-Spring Boot serves static content from resources in the classpath at `/static` (or
-`/public`). The `index.html` resource is special because, if it exists, it is used as a
-"welcome page", which means it is served up as the root resource (that is, at
-`http://localhost:8080/`). As a result, you need to create the following file (which you
-can find in `src/main/resources/static/index.html`):
-
-====
-[source,html]
-----
-include::complete/src/main/resources/static/index.html[]
-----
-====
-
-When you restart the application, you will see the HTML at `http://localhost:8080/`.
-
-== Summary
-
-Congratulations! You have just developed a web page by using Spring.
-
-== See Also
-
-The following guides may also be helpful:
-
-* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
-* https://spring.io/guides/gs/accessing-data-gemfire/[Accessing Data with GemFire]
-* https://spring.io/guides/gs/accessing-data-jpa/[Accessing Data with JPA]
-* https://spring.io/guides/gs/accessing-data-mongodb/[Accessing Data with MongoDB]
-* https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
-* https://spring.io/guides/gs/testing-web/[Testing the Web Layer]
-* https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/footer.adoc[]
-
-# To run
-
-```
-mvn spring-boot:run
-
-```
-# Database
-
-[Connect to Aivan from CLI](https://aiven.io/docs/products/mysql/howto/connect-from-cli)
