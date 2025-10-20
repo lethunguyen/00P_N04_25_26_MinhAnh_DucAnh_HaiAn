@@ -3,7 +3,6 @@
 public class Main {
     public static void main(String[] args) {
         String rootfile = "text.txt";
-        String afterfile = "modified.txt";
 
         WriteFile writer = new WriteFile();
         ReadFile reader = new ReadFile();
@@ -11,6 +10,7 @@ public class Main {
 
         writer.writeToFile("text.txt", "Hi From Duc Anh !!");
         reader.readFromFile("text.txt");
+        
         edit.editFile("text.txt", "hì hì");
         reader.readFromFile("text.txt");
     }
