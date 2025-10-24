@@ -1,9 +1,9 @@
-package Controller;
+package src.Controller;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import Model.User;
+import src.Model.User;
 
 
 public class UserCRUD {

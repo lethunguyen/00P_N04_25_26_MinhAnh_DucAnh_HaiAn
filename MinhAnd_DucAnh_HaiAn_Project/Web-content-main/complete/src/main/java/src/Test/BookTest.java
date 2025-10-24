@@ -1,7 +1,7 @@
 
-package UserAndBook.test;
+package src.Test;
 
-import UserAndBook.src.Book;
+import src.Model.Book;
 
 public class BookTest {
     public static void runTests() {

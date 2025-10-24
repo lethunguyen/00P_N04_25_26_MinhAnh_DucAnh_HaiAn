@@ -1,4 +1,4 @@
-package Model;
+package src.Model;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,8 +7,8 @@ public class User {
     private static Map<String, String> accounts = new HashMap<>();
 
     protected String username;
-    protected String password;
-    protected String role; // "nhanvien", "khachhang", "admin"
+    public String password;
+    public String role; // "nhanvien", "khachhang", "admin"
 
     // Constructor
     public User(String username, String password, String role) {

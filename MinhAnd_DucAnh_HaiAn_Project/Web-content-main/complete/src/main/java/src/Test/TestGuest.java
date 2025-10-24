@@ -1,6 +1,6 @@
-package Test;
-import Controller.GuestCRUD;
-import Model.Guest;
+package src.Test;
+import src.Controller.GuestCRUD;
+import src.Model.Guest;
 public class TestGuest {
     public static void main(String[] args) {
         GuestCRUD dao = new GuestCRUD();

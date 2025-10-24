@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
-import Controller.GuestCRUD;
-import Model.Guest;
-
-import Controller.EmployeeManager;
-import Model.Employee;
+import src.Controller.GuestCRUD;
+import src.Model.Guest;
 
 
 
 public class App {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         GuestCRUD dao = new GuestCRUD();

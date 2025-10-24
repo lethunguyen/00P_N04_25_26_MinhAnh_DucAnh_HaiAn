@@ -1,7 +1,9 @@
-package Controller;
+package src.Controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import src.Model.Book;
 
 public class BookCRUD {
     // "Database giả lập"

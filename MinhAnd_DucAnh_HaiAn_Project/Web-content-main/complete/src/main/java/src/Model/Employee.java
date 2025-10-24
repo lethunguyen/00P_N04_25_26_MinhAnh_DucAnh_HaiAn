@@ -1,4 +1,4 @@
-package Model;
+package src.Model;
 
 public class Employee {
     private String id;

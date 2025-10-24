@@ -1,4 +1,4 @@
-package Model;
+package src.Model;
 public class Guest {
     private String name;
     private String id;

@@ -1,6 +1,6 @@
-package Test;
-import Controller.EmployeeManager;
-import Model.Employee;
+package src.Test;
+import src.Controller.EmployeeManager;
+import src.Model.Employee;
 
 public class EmployeeTest {
     public static void test() {
