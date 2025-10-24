@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String HOST = ; //thay host trong aiven vào ""
+    //private static final String HOST = ; //thay host trong aiven vào ""
     private static final int PORT = 26835;
     private static final String DATABASE = "defaultdb";
     private static final String USER = "avnadmin";
-    private static final String PASSWORD = ; // ⚠️ Thay mật khẩu thật của bạn tại đây ""
+    //private static final String PASSWORD = ; // ⚠️ Thay mật khẩu thật của bạn tại đây ""
 
     private static Connection connection = null;
 
