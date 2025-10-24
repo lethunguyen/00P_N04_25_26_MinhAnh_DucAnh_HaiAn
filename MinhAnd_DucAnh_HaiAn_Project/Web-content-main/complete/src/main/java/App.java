@@ -1,15 +1,18 @@
 import java.util.Scanner;
+import java.sql.Connection;
 
 import src.Controller.GuestCRUD;
 import src.Model.Guest;
-
-
+import src.Database.DatabaseConnection;
 
 public class App {
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
+        Connection testConn = DatabaseConnection.getConnection();
+        if (testConn == null) {
+            System.err.println("❌ Cannot continue, database not connected!");
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
         GuestCRUD dao = new GuestCRUD();
 
@@ -22,10 +25,10 @@ public class App {
             System.out.println("5. Exit");
             System.out.print("Choose option: ");
             int choice = sc.nextInt();
-            sc.nextLine(); // clear buffer
+            sc.nextLine();
 
             switch (choice) {
-                case 1 -> {
+                case 1:
                     System.out.print("Enter name: ");
                     String name = sc.nextLine();
                     System.out.print("Enter ID: ");
@@ -34,42 +37,40 @@ public class App {
                     String phone = sc.nextLine();
                     System.out.print("Enter address: ");
                     String address = sc.nextLine();
-
-                    Guest g = new Guest(name, id, phone, address);
-                    dao.add(g);
+                    dao.add(new Guest(name, id, phone, address));
                     System.out.println("✅ Guest added!");
-                }
-                case 2 -> {
+                    break;
+                case 2:
                     System.out.println("\n--- GUEST LIST ---");
                     for (Guest g : dao.getAll()) {
                         System.out.println(g);
                     }
-                }
-                case 3 -> {
+                    break;
+                case 3:
                     System.out.print("Enter ID to update: ");
-                    String id = sc.nextLine();
+                    id = sc.nextLine();
                     System.out.print("New name: ");
-                    String newName = sc.nextLine();
+                    name = sc.nextLine();
                     System.out.print("New phone: ");
-                    String newPhone = sc.nextLine();
+                    phone = sc.nextLine();
                     System.out.print("New address: ");
-                    String newAddress = sc.nextLine();
-
-                    dao.update(id, newName, newPhone, newAddress);
+                    address = sc.nextLine();
+                    dao.update(id, name, phone, address);
                     System.out.println("✅ Guest updated!");
-                }
-                case 4 -> {
+                    break;
+                case 4:
                     System.out.print("Enter ID to delete: ");
-                    String id = sc.nextLine();
+                    id = sc.nextLine();
                     dao.delete(id);
                     System.out.println("✅ Guest deleted!");
-                }
-                case 5 -> {
+                    break;
+                case 5:
+                    DatabaseConnection.closeConnection();
                     System.out.println("👋 Exiting program!");
                     sc.close();
                     return;
-                }
-                default -> System.out.println("❌ Invalid choice!");
+                default:
+                    System.out.println("❌ Invalid choice!");
             }
         }
     }
