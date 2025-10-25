@@ -3,43 +3,39 @@ package src.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class DatabaseConnection {
-
-    private static final String HOST = "mysql-2a0e9a05-st-f11b.b.aivencloud.com"; //host trong aiven
-    private static final int PORT = 26835;
-    private static final String DATABASE = "defaultdb";
-    private static final String USER = "avnadmin";
-    private static final String PASSWORD = AVNS_vq8sUYby2CzR5_j4_4_; //mật khẩu 
-
-    private static Connection connection = null;
+    private static Connection connection;
 
     public static Connection getConnection() {
         if (connection != null) {
             return connection;
         }
-        try {
-            String url = String.format(
-                "jdbc:mysql://%s:%d/%s?sslMode=REQUIRED",
-                HOST, PORT, DATABASE
-            );
-            connection = DriverManager.getConnection(url, USER, PASSWORD);
-            System.out.println("✅ Database connected successfully!");
-        } catch (SQLException e) {
-            System.err.println("❌ Database connection failed: " + e.getMessage());
-        }
-        return connection;
-    }
 
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                connection = null;
-                System.out.println("🔌 Database connection closed.");
-            } catch (SQLException e) {
-                System.err.println("⚠️ Failed to close database: " + e.getMessage());
+        try {
+            // Load environment variables
+            Dotenv dotenv = Dotenv.configure()
+                .directory("./") // path tới file .env
+                .ignoreIfMissing()
+                .load();
+
+            String url = dotenv.get("DB_URL");
+            String user = dotenv.get("DB_USER");
+            String password = dotenv.get("DB_PASSWORD");
+
+            if (url == null || user == null || password == null) {
+                throw new RuntimeException("⚠️ Missing DB configuration in .env file!");
             }
+
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("✅ Connected to database successfully!");
+        } catch (SQLException e) {
+            throw new RuntimeException("❌ Database connection failed: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("❌ Unexpected error while connecting to DB: " + e.getMessage(), e);
         }
+
+        return connection;
     }
 }
