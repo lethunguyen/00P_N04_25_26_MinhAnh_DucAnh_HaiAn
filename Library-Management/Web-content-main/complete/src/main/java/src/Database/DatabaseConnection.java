@@ -1,41 +1,47 @@
 package src.Database;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class DatabaseConnection {
-    private static Connection connection;
+
+    private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection != null) {
-            return connection;
-        }
+        if (connection == null) {
+            try {
+                Dotenv dotenv = Dotenv.load();
 
-        try {
-            // Load environment variables
-            Dotenv dotenv = Dotenv.configure()
-                .directory("./") // path tới file .env
-                .ignoreIfMissing()
-                .load();
+                String url = dotenv.get("DB_URL");
+                String user = dotenv.get("DB_USER");
+                String password = dotenv.get("DB_PASSWORD");
 
-            String url = dotenv.get("DB_URL");
-            String user = dotenv.get("DB_USER");
-            String password = dotenv.get("DB_PASSWORD");
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(url, user, password);
 
-            if (url == null || user == null || password == null) {
-                throw new RuntimeException("⚠️ Missing DB configuration in .env file!");
+                System.out.println("✅ Đã kết nối MySQL (qua .env)!");
+            } catch (ClassNotFoundException e) {
+                System.out.println("❌ Không tìm thấy driver MySQL!");
+                e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println("❌ Lỗi khi kết nối MySQL!");
+                e.printStackTrace();
             }
-
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("✅ Connected to database successfully!");
-        } catch (SQLException e) {
-            throw new RuntimeException("❌ Database connection failed: " + e.getMessage(), e);
-        } catch (Exception e) {
-            throw new RuntimeException("❌ Unexpected error while connecting to DB: " + e.getMessage(), e);
         }
-
         return connection;
+    }
+
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("🔒 Đã đóng kết nối MySQL!");
+            } catch (SQLException e) {
+                System.out.println("⚠️ Lỗi khi đóng kết nối!");
+                e.printStackTrace();
+            }
+        }
     }
 }

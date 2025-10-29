@@ -1,53 +1,38 @@
 package src.Model;
-import java.util.HashMap;
-import java.util.Map;
 
 public class User {
-    // Database giả lập (dùng HashMap)
-    private static Map<String, String> accounts = new HashMap<>();
+    private int id;
+    private String username;
+    private String password;
+    private String role; // "librarian" or "customer"
 
-    protected String username;
-    public String password;
-    public String role; // "nhanvien", "khachhang", "admin"
+    public User() {}
 
-    // Constructor
-    public User(String username, String password, String role) {
+    public User(int id, String username, String password, String role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    // Tạo tài khoản (lưu vào accounts)
-    public static boolean register(String username, String password) {
-        if (accounts.containsKey(username)) {
-            System.out.println("Tài khoản đã tồn tại!");
-            return false;
-        }
-        accounts.put(username, password);
-        System.out.println("Đăng ký thành công cho user: " + username);
-        return true;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Đăng nhập
-    public static boolean login(String username, String password) {
-        if (!accounts.containsKey(username)) {
-            System.out.println("Tài khoản không tồn tại!");
-            return false;
-        }
-        if (accounts.get(username).equals(password)) {
-            System.out.println("Đăng nhập thành công!");
-            return true;
-        } else {
-            System.out.println("Sai mật khẩu!");
-            return false;
-        }
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getRole() {
-        return role;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public void logout() {
-        System.out.println(username + " đã đăng xuất.");
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

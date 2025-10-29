@@ -10,7 +10,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.18</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.example</groupId>
@@ -49,6 +49,13 @@
             <version>8.0.33</version>
         </dependency>
 
+        <!-- dotenv (đọc file .env an toàn) -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
         <!-- Devtools (auto reload HTML) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,20 +64,13 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Testing (optional) -->
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <dependency>
-        <groupId>io.github.cdimascio</groupId>
-        <artifactId>java-dotenv</artifactId>
-        <version>5.2.2</version>
-    </dependency>
-
 
     <build>
         <plugins>
@@ -80,4 +80,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

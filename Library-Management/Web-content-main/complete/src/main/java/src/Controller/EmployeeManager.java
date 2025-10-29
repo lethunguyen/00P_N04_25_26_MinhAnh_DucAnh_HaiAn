@@ -1,44 +1,72 @@
-package src.Controller;
+package src.Database;
 
-import java.util.ArrayList;
+import io.github.cdimascio.dotenv.Dotenv;
 
-import src.Model.Employee;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class EmployeeManager {
-    private ArrayList<Employee> employees = new ArrayList<>();
+public class DatabaseConnection {
 
-    // CREATE
-    public void addEmployee(Employee e) {
-        employees.add(e);
-        System.out.println("Added Employee: " + e.getName());
+    // single-ton Connection
+    private static Connection connection = null;
+
+    // Lấy thông tin từ .env (Dotenv sẽ đọc file .env ở project root)
+    private static String getEnv(String key) {
+        Dotenv dotenv = Dotenv.configure()
+                .ignoreIfMissing() // tránh ném nếu .env không tồn tại (dùng fallback)
+                .load();
+        return dotenv.get(key);
     }
 
-    // READ
-    public void listEmployees() {
-        System.out.println("Employee List:");
-        for (Employee e : employees) {
-            System.out.println(e);
+    public static Connection getConnection() {
+        if (connection != null) {
+            return connection;
         }
-    }
 
-    // UPDATE
-    public void updateEmployee(String id, String newName, int newAge, String newCccd, boolean newRole) {
-        for (Employee e : employees) {
-            if (e.getId().equals(id)) {
-                e.setName(newName);
-                e.setAge(newAge);
-                e.setCccd(newCccd);
-                e.setIsManager(newRole);
-                System.out.println("Updated Employee Information " + id);
-                return;
+        try {
+            String url = getEnv("DB_URL");
+            String user = getEnv("DB_USER");
+            String pass = getEnv("DB_PASSWORD");
+
+            // fallback mặc định (chỉ dùng khi .env không có) — an toàn cho dev
+            if (url == null || url.isEmpty()) {
+                url = "jdbc:mysql://localhost:3306/librarydb";
             }
+            if (user == null) {
+                user = "root";
+            }
+            if (pass == null) {
+                pass = "";
+            }
+
+            // đảm bảo driver được load (JDBC 4+ tự load, nhưng gọi rõ ràng không hại)
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException ignored) {
+                // nếu không tìm thấy driver thì DriverManager sẽ ném SQLException sau đó
+            }
+
+            connection = DriverManager.getConnection(url, user, pass);
+            System.out.println("✅ DatabaseConnection: connected to DB (" + url + ")");
+            return connection;
+
+        } catch (SQLException e) {
+            // ném runtime để các lớp phía trên có thể xử lý và in thông báo rõ ràng
+            throw new RuntimeException("❌ DatabaseConnection: failed to connect - " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("❌ DatabaseConnection: unexpected error - " + e.getMessage(), e);
         }
-        System.out.println("No Employee Found With ID: " + id);
     }
 
-    // DELETE
-    public void removeEmployee(String id) {
-        employees.removeIf(e -> e.getId().equals(id));
-        System.out.println("Deleted Employee With ID: " + id);
+    public static void closeConnection() {
+        if (connection == null) return;
+        try {
+            connection.close();
+            connection = null;
+            System.out.println("🔒 DatabaseConnection: connection closed");
+        } catch (SQLException e) {
+            System.err.println("⚠️ DatabaseConnection: error closing connection - " + e.getMessage());
+        }
     }
 }
