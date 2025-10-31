@@ -1,21 +1,21 @@
 {
   "info": {
     "name": "Library Management API",
-    "_postman_id": "d2e6f180-37a3-4a0e-81c1-ef6f3f3fae0c",
+    "_postman_id": "library-collection",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Get All Books",
+      "name": "Get Books",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/books",
+          "raw": "http://localhost:8080/books/api",
           "protocol": "http",
           "host": ["localhost"],
           "port": "8080",
-          "path": ["books"]
+          "path": ["books","api"]
         }
       }
     },
@@ -23,10 +23,10 @@
       "name": "Add Book",
       "request": {
         "method": "POST",
-        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "header": [{"key":"Content-Type","value":"application/json"}],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Brave New World\",\n  \"author\": \"Aldous Huxley\",\n  \"year\": 1932,\n  \"available\": true\n}"
+          "raw": "{\n  \"title\": \"New Postman Book\",\n  \"author\": \"API\",\n  \"publishYear\": 2023,\n  \"quantity\": 2\n}"
         },
         "url": {
           "raw": "http://localhost:8080/books",

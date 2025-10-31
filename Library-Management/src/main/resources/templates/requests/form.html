@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:insert="fragments/header :: body"></div>
+
+<div class="container">
+  <h2>Create Borrow Request</h2>
+  <form th:action="@{/requests/save}" method="post" th:object="${request}">
+    <div class="mb-3">
+      <label class="form-label">Book</label>
+      <select class="form-select" name="bookId">
+        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}">Book</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Customer</label>
+      <select class="form-select" name="customerId">
+        <option th:each="c : ${customers}" th:value="${c.userId}" th:text="${c.fullName}">Customer</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Return Date</label>
+      <input class="form-control" type="date" name="returnDate"/>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    <a class="btn btn-secondary" href="/requests">Cancel</a>
+  </form>
+</div>
+</body>
+</html>
