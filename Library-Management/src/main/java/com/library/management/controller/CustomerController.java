@@ -1,86 +1,47 @@
-package Controller;
+package com.library.management.controller;
 
-import src.Database.DatabaseConnection;
-import src.Model.Customer;
+import com.library.management.model.Customer;
+import com.library.management.service.CustomerService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
+@Controller
+@RequestMapping("/customers")
 public class CustomerController {
 
-    public void addCustomer(Customer c) {
-        String sql = "INSERT INTO customers (username, password, email, phone) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    private final CustomerService svc;
 
-            ps.setString(1, c.getUsername());
-            ps.setString(2, c.getPassword());
-            ps.setString(3, c.getEmail());
-            ps.setString(4, c.getPhone());
-            ps.executeUpdate();
-            System.out.println("✅ Customer added successfully!");
+    public CustomerController(CustomerService svc) { this.svc = svc; }
 
-        } catch (SQLException e) {
-            System.err.println("❌ Error adding customer: " + e.getMessage());
-        }
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute("customers", svc.findAll());
+        return "customers/list";
     }
 
-    public List<Customer> getAllCustomers() {
-        List<Customer> list = new ArrayList<>();
-        String sql = "SELECT * FROM customers";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Customer c = new Customer(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone")
-                );
-                list.add(c);
-            }
-
-        } catch (SQLException e) {
-            System.err.println("❌ Error retrieving customers: " + e.getMessage());
-        }
-
-        return list;
+    @GetMapping("/new")
+    public String newForm(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "customers/form";
     }
 
-    public void updateCustomer(Customer c) {
-        String sql = "UPDATE customers SET username=?, password=?, email=?, phone=? WHERE id=?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, c.getUsername());
-            ps.setString(2, c.getPassword());
-            ps.setString(3, c.getEmail());
-            ps.setString(4, c.getPhone());
-            ps.setInt(5, c.getId());
-            ps.executeUpdate();
-            System.out.println("✅ Customer updated successfully!");
-
-        } catch (SQLException e) {
-            System.err.println("❌ Error updating customer: " + e.getMessage());
-        }
+    @PostMapping("/save")
+    public String save(@ModelAttribute Customer customer) {
+        svc.save(customer);
+        return "redirect:/customers";
     }
 
-    public void deleteCustomer(int id) {
-        String sql = "DELETE FROM customers WHERE id=?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Customer c = svc.findById(id).orElse(new Customer());
+        model.addAttribute("customer", c);
+        return "customers/form";
+    }
 
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            System.out.println("✅ Customer deleted successfully!");
-
-        } catch (SQLException e) {
-            System.err.println("❌ Error deleting customer: " + e.getMessage());
-        }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        svc.deleteById(id);
+        return "redirect:/customers";
     }
 }

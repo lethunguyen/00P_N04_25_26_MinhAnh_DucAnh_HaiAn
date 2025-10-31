@@ -1,32 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head"></head>
+<head>
+    <title>Book Form</title>
+</head>
 <body>
-<div th:insert="fragments/header :: body"></div>
+<h2 th:text="${book.id == null ? 'Add Book' : 'Edit Book'}"></h2>
 
-<div class="container">
-  <h2 th:text="${book.id != null} ? 'Edit Book' : 'Add Book'">Add Book</h2>
-  <form th:action="@{/books/save}" th:object="${book}" method="post">
-    <input type="hidden" th:field="*{id}"/>
-    <div class="mb-3">
-      <label class="form-label">Title</label>
-      <input class="form-control" th:field="*{title}" required/>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Author</label>
-      <input class="form-control" th:field="*{author}" required/>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Year</label>
-      <input class="form-control" th:field="*{publishYear}" type="number"/>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Quantity</label>
-      <input class="form-control" th:field="*{quantity}" type="number"/>
-    </div>
-    <button class="btn btn-primary" type="submit">Save</button>
-    <a class="btn btn-secondary" href="/books">Cancel</a>
-  </form>
-</div>
+<form th:action="@{/books/save}" th:object="${book}" method="post">
+    <label>Title:</label><input type="text" th:field="*{title}" /><br/>
+    <label>Author:</label><input type="text" th:field="*{author}" /><br/>
+    <label>Publish Year:</label><input type="number" th:field="*{publishYear}" /><br/>
+    <label>Quantity:</label><input type="number" th:field="*{quantity}" /><br/>
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/books}">Back</a>
 </body>
 </html>

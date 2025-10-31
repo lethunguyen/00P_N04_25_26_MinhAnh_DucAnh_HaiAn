@@ -1,31 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head"></head>
+<head>
+    <title>Borrow Request Form</title>
+</head>
 <body>
-<div th:insert="fragments/header :: body"></div>
+<h2 th:text="${request.id == null ? 'Create Borrow Request' : 'Edit Borrow Request'}"></h2>
 
-<div class="container">
-  <h2>Create Borrow Request</h2>
-  <form th:action="@{/requests/save}" method="post" th:object="${request}">
-    <div class="mb-3">
-      <label class="form-label">Book</label>
-      <select class="form-select" name="bookId">
-        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}">Book</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Customer</label>
-      <select class="form-select" name="customerId">
-        <option th:each="c : ${customers}" th:value="${c.userId}" th:text="${c.fullName}">Customer</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Return Date</label>
-      <input class="form-control" type="date" name="returnDate"/>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-    <a class="btn btn-secondary" href="/requests">Cancel</a>
-  </form>
-</div>
+<form th:action="@{/requests/save}" th:object="${request}" method="post">
+    <label>Book ID:</label><input type="number" th:field="*{book.id}" /><br/>
+    <label>Customer ID:</label><input type="number" th:field="*{customer.id}" /><br/>
+    <label>Request Date:</label><input type="date" th:field="*{requestDate}" /><br/>
+    <label>Return Date:</label><input type="date" th:field="*{returnDate}" /><br/>
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/requests}">Back</a>
 </body>
 </html>

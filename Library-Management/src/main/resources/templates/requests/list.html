@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head"></head>
+<head>
+    <title>Borrow Requests</title>
+</head>
 <body>
-<div th:insert="fragments/header :: body"></div>
-
-<div class="container">
-  <h2>Borrow Requests</h2>
-  <a class="btn btn-primary mb-2" href="/requests/new">Create Request</a>
-  <table class="table table-striped">
-    <thead><tr><th>ID</th><th>Book</th><th>Customer</th><th>Request Date</th><th>Return Date</th><th>Status</th><th>Actions</th></tr></thead>
-    <tbody>
-      <tr th:each="r : ${requests}">
-        <td th:text="${r.requestId}">1</td>
-        <td th:text="${r.book.title}">Book</td>
-        <td th:text="${r.customer.fullName}">Customer</td>
-        <td th:text="${r.requestDate}">2025-01-01</td>
-        <td th:text="${r.returnDate}">2025-01-14</td>
-        <td th:text="${r.status}">PENDING</td>
+<h2>📖 Borrow Requests</h2>
+<a th:href="@{/requests/form}">➕ Create New Request</a>
+<table border="1">
+    <tr>
+        <th>ID</th><th>Book</th><th>Customer</th><th>Status</th><th>Request Date</th><th>Return Date</th><th>Actions</th>
+    </tr>
+    <tr th:each="req : ${requests}">
+        <td th:text="${req.id}"></td>
+        <td th:text="${req.book.title}"></td>
+        <td th:text="${req.customer.fullName}"></td>
+        <td th:text="${req.status}"></td>
+        <td th:text="${req.requestDate}"></td>
+        <td th:text="${req.returnDate}"></td>
         <td>
-          <a th:if="${r.status == 'PENDING'}" th:href="@{|/requests/approve/${r.requestId}|}" class="btn btn-sm btn-success">Approve</a>
-          <a th:if="${r.status == 'APPROVED'}" th:href="@{|/requests/return/${r.requestId}|}" class="btn btn-sm btn-info">Mark Returned</a>
-          <a th:href="@{|/requests/delete/${r.requestId}|}" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+            <a th:href="@{'/requests/edit/' + ${req.id}}">Edit</a> |
+            <a th:href="@{'/requests/delete/' + ${req.id}}">Delete</a>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    </tr>
+</table>
 </body>
 </html>
