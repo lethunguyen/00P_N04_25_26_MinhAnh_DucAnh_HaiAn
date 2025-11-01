@@ -16,8 +16,12 @@ public class BookController {
         this.svc = svc;
     }
 
-    // Thymeleaf list
+    /**
+     * Hiển thị danh sách sách.
+     * Cho phép truy cập cả /books và /books/list để tương thích giao diện cũ.
+     */
     @GetMapping
+    @GetMapping({"", "/list"})
     public String list(Model model) {
         model.addAttribute("books", svc.findAll());
         return "books/list";
@@ -48,7 +52,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    // Minimal REST endpoint for Postman
+    // REST hỗ trợ Postman
     @PostMapping
     @ResponseBody
     public Book createRest(@RequestBody Book b) {

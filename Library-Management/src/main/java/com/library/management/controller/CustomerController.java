@@ -12,9 +12,16 @@ public class CustomerController {
 
     private final CustomerService svc;
 
-    public CustomerController(CustomerService svc) { this.svc = svc; }
+    public CustomerController(CustomerService svc) {
+        this.svc = svc;
+    }
 
+    /**
+     * Hiển thị danh sách khách hàng.
+     * Cho phép /customers và /customers/list.
+     */
     @GetMapping
+    @GetMapping({"", "/list"})
     public String list(Model model) {
         model.addAttribute("customers", svc.findAll());
         return "customers/list";

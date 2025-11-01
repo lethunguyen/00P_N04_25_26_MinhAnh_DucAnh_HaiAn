@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">📚 Library Management</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/books/list">Books</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/requests/list">Borrow Requests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/customers/list">Customers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <h1 class="mb-4">Welcome to Library Management System</h1>
+        <p class="lead">Manage your books, customers, and borrow requests easily.</p>
+
+        <div class="mt-5">
+            <a href="/books/list" class="btn btn-primary m-2">📖 View Books</a>
+            <a href="/requests/list" class="btn btn-success m-2">📋 Borrow Requests</a>
+            <a href="/customers/list" class="btn btn-warning m-2">👤 Customers</a>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 text-muted">
+        <p>© 2025 Library Management Demo — Powered by Spring Boot & Thymeleaf</p>
+    </footer>
+</body>
+</html>

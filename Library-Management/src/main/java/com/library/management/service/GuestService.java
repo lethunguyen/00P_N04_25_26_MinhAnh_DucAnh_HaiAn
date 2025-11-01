@@ -9,12 +9,27 @@ import java.util.Optional;
 
 @Service
 public class GuestService {
-    private final GuestRepository repo;
 
-    public GuestService(GuestRepository repo) { this.repo = repo; }
+    private final GuestRepository guestRepository;
 
-    public List<Guest> findAll() { return repo.findAll(); }
-    public Optional<Guest> findById(Long id) { return repo.findById(id); }
-    public Guest save(Guest g) { return repo.save(g); }
-    public void deleteById(Long id) { repo.deleteById(id); }
+    public GuestService(GuestRepository guestRepository) {
+        this.guestRepository = guestRepository;
+    }
+
+    public List<Guest> findAll() {
+        return guestRepository.findAll();
+    }
+
+    public Optional<Guest> findById(Long id) {
+        return guestRepository.findById(id);
+    }
+
+    public Guest save(Guest guest) {
+        return guestRepository.save(guest);
+    }
+
+    // đổi tên theo controller gọi deleteById()
+    public void deleteById(Long id) {
+        guestRepository.deleteById(id);
+    }
 }

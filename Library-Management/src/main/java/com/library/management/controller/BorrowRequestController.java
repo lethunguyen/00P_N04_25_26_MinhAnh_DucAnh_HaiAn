@@ -26,7 +26,12 @@ public class BorrowRequestController {
         this.customerRepo = customerRepo;
     }
 
+    /**
+     * Hiển thị danh sách yêu cầu mượn.
+     * Cho phép /requests và /requests/list.
+     */
     @GetMapping
+    @GetMapping({"", "/list"})
     public String list(Model model) {
         model.addAttribute("requests", svc.findAll());
         model.addAttribute("books", bookService.findAll());
@@ -43,9 +48,13 @@ public class BorrowRequestController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BorrowRequest request, @RequestParam Long bookId, @RequestParam Long customerId) {
-        Book book = bookService.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
-        Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+    public String save(@ModelAttribute BorrowRequest request,
+                       @RequestParam Long bookId,
+                       @RequestParam Long customerId) {
+        Book book = bookService.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+        Customer customer = customerRepo.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
         request.setBook(book);
         request.setCustomer(customer);
         request.setRequestDate(LocalDate.now());
