@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Customer Form</title></head>
+<body>
+<h2 th:text="${customer.id} != null ? 'Edit' : 'New'">Form</h2>
+<form th:action="@{/customers/save}" th:object="${customer}" method="post">
+  <input type="hidden" th:field="*{id}"/>
+  <div>Username: <input th:field="*{username}" required/></div>
+  <div>Password: <input th:field="*{password}" required/></div>
+  <div>FullName: <input th:field="*{fullName}"/></div>
+  <div>Email: <input th:field="*{email}"/></div>
+  <div>Phone: <input th:field="*{phone}"/></div>
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>
