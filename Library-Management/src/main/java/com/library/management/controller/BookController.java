@@ -2,6 +2,7 @@ package com.library.management.controller;
 
 import com.library.management.model.Book;
 import com.library.management.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,58 +11,45 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookService svc;
+    @Autowired
+    private BookService bookService;
 
-    public BookController(BookService svc) {
-        this.svc = svc;
-    }
-
-    /**
-     * Hiển thị danh sách sách.
-     * Cho phép truy cập cả /books và /books/list để tương thích giao diện cũ.
-     */
-    @GetMapping
-    @GetMapping({"", "/list"})
-    public String list(Model model) {
-        model.addAttribute("books", svc.findAll());
+    // 📚 Danh sách
+    @GetMapping("/list")
+    public String listBooks(Model model) {
+        model.addAttribute("books", bookService.getAllBooks());
         return "books/list";
     }
 
+    // ➕ Form thêm mới
     @GetMapping("/new")
-    public String newForm(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("book", new Book());
         return "books/form";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute Book book) {
-        svc.save(book);
-        return "redirect:/books";
-    }
-
+    // ✏️ Form chỉnh sửa
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
-        Book b = svc.findById(id).orElse(new Book());
-        model.addAttribute("book", b);
+    public String showEditForm(@PathVariable int id, Model model) {
+        Book book = bookService.getBookById(id);
+        if (book == null) {
+            return "redirect:/books/list";
+        }
+        model.addAttribute("book", book);
         return "books/form";
     }
 
+    // 💾 Lưu dữ liệu (thêm hoặc sửa)
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("book") Book book) {
+        bookService.saveBook(book);
+        return "redirect:/books/list";
+    }
+
+    // 🗑️ Xóa sách
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        svc.deleteById(id);
-        return "redirect:/books";
-    }
-
-    // REST hỗ trợ Postman
-    @PostMapping
-    @ResponseBody
-    public Book createRest(@RequestBody Book b) {
-        return svc.save(b);
-    }
-
-    @GetMapping("/api")
-    @ResponseBody
-    public java.util.List<Book> listRest() {
-        return svc.findAll();
+    public String deleteBook(@PathVariable int id) {
+        bookService.deleteBook(id);
+        return "redirect:/books/list";
     }
 }

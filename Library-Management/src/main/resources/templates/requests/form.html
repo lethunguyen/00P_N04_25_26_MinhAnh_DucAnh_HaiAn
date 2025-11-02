@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Borrow Request Form</title>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head><meta charset="UTF-8"/><title>Borrow Request Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-<h2 th:text="${request.id == null ? 'Create Borrow Request' : 'Edit Borrow Request'}"></h2>
+  <div th:replace="fragments/header :: header"></div>
 
-<form th:action="@{/requests/save}" th:object="${request}" method="post">
-    <label>Book ID:</label><input type="number" th:field="*{book.id}" /><br/>
-    <label>Customer ID:</label><input type="number" th:field="*{customer.id}" /><br/>
-    <label>Request Date:</label><input type="date" th:field="*{requestDate}" /><br/>
-    <label>Return Date:</label><input type="date" th:field="*{returnDate}" /><br/>
-    <button type="submit">Save</button>
-</form>
+  <div class="container mt-4" style="max-width:700px;">
+    <h2 th:text="${request.id == null ? 'Create Borrow Request' : 'Edit Borrow Request'}"></h2>
 
-<a th:href="@{/requests}">Back</a>
+    <form th:action="@{/requests/save}" method="post">
+      <div class="mb-3">
+        <label class="form-label">Book</label>
+        <select name="bookId" class="form-select">
+          <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title} + ' (' + b.publishYear + ')'"></option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Customer</label>
+        <select name="customerId" class="form-select">
+          <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.fullName} + ' (' + c.username + ')'"></option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Return Date</label>
+        <input type="date" name="returnDate" class="form-control"/>
+      </div>
+
+      <button class="btn btn-success">Save</button>
+      <a th:href="@{/requests}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
 </body>
 </html>

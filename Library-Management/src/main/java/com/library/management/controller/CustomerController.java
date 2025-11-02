@@ -2,6 +2,7 @@ package com.library.management.controller;
 
 import com.library.management.model.Customer;
 import com.library.management.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,45 +11,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final CustomerService svc;
+    @Autowired
+    private CustomerService customerService;
 
-    public CustomerController(CustomerService svc) {
-        this.svc = svc;
-    }
-
-    /**
-     * Hiển thị danh sách khách hàng.
-     * Cho phép /customers và /customers/list.
-     */
-    @GetMapping
-    @GetMapping({"", "/list"})
-    public String list(Model model) {
-        model.addAttribute("customers", svc.findAll());
+    @GetMapping("/list")
+    public String listCustomers(Model model) {
+        model.addAttribute("customers", customerService.getAllCustomers());
         return "customers/list";
     }
 
-    @GetMapping("/new")
-    public String newForm(Model model) {
+    @GetMapping("/form")
+    public String showForm(Model model) {
         model.addAttribute("customer", new Customer());
         return "customers/form";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Customer customer) {
-        svc.save(customer);
-        return "redirect:/customers";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
-        Customer c = svc.findById(id).orElse(new Customer());
-        model.addAttribute("customer", c);
-        return "customers/form";
+    public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+        customerService.saveCustomer(customer);
+        return "redirect:/customers/list";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        svc.deleteById(id);
-        return "redirect:/customers";
+    public String deleteCustomer(@PathVariable int id) {
+        customerService.deleteCustomer(id);
+        return "redirect:/customers/list";
     }
 }

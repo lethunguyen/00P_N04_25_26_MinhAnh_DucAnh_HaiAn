@@ -2,56 +2,62 @@ package com.library.management.service;
 
 import com.library.management.model.Employee;
 import com.library.management.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-    public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee getEmployeeById(int id) {
+        return employeeRepository.findById((long) id).orElse(null);
     }
 
-    public Optional<Employee> getEmployeeById(Long id) {
-        return employeeRepository.findById(id);
-    }
-
-    @Transactional
-    public Employee updateEmployee(Long id, Employee updated) {
-        return employeeRepository.findById(id)
-                .map(existing -> {
-                    existing.setFullName(updated.getFullName());
-                    existing.setUsername(updated.getUsername());
-                    existing.setPassword(updated.getPassword());
-                    existing.setRole(updated.getRole());
-                    return employeeRepository.save(existing);
-                })
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
-    }
-
-    public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
-    }
-
-    // ✅ Login logic cơ bản (tạm thời)
-    public Employee login(String username, String password) {
+    public Employee findByUsername(String username) {
         return employeeRepository.findAll().stream()
-                .filter(e -> e.getUsername().equalsIgnoreCase(username)
-                        && e.getPassword().equals(password))
+                .filter(e -> e.getUsername().equals(username))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void saveEmployee(Employee emp) {
+        employeeRepository.save(emp);
+    }
+
+    // ✅ Thêm alias để tránh lỗi gọi từ controller cũ
+    public void createEmployee(Employee emp) {
+        saveEmployee(emp);
+    }
+
+    public void deleteEmployee(int id) {
+        employeeRepository.deleteById((long) id);
+    }
+
+    public Employee updateEmployee(int id, Employee updated) {
+        Employee existing = getEmployeeById(id);
+        if (existing != null) {
+            existing.setFullName(updated.getFullName());
+            existing.setUsername(updated.getUsername());
+            existing.setPassword(updated.getPassword());
+            existing.setRole(updated.getRole());
+            return employeeRepository.save(existing);
+        }
+        return null;
+    }
+
+    // ✅ Đăng nhập bằng username
+    public Employee login(String username, String password) {
+        Employee emp = findByUsername(username);
+        if (emp != null && emp.getPassword().equals(password)) {
+            return emp;
+        }
+        return null;
     }
 }

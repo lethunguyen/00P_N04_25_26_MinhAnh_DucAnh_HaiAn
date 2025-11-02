@@ -1,16 +1,20 @@
 package com.library.management.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "customers")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Customer extends User {
 
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    private String phone;
 }

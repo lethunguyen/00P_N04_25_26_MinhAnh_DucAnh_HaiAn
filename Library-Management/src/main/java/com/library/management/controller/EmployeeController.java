@@ -17,7 +17,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    // List view
+    // Danh sách nhân viên
     @GetMapping
     public String listEmployees(Model model) {
         List<Employee> list = employeeService.getAllEmployees();
@@ -25,7 +25,7 @@ public class EmployeeController {
         return "employee-list";
     }
 
-    // Add form
+    // Thêm mới
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("employee", new Employee());
@@ -34,31 +34,31 @@ public class EmployeeController {
 
     @PostMapping("/add")
     public String addEmployee(@ModelAttribute Employee e) {
-        employeeService.createEmployee(e);
+        employeeService.saveEmployee(e); // ✅ Sửa createEmployee -> saveEmployee
         return "redirect:/employees";
     }
 
-    // Edit form
+    // Chỉnh sửa
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployeeById(id).orElse(new Employee()));
+        model.addAttribute("employee", employeeService.getEmployeeById(id.intValue())); // ✅ ép kiểu sang int
         return "employee-form";
     }
 
     @PostMapping("/edit/{id}")
     public String updateEmployee(@PathVariable Long id, @ModelAttribute Employee e) {
-        employeeService.updateEmployee(id, e);
+        employeeService.updateEmployee(id.intValue(), e); // ✅ ép kiểu sang int
         return "redirect:/employees";
     }
 
-    // Delete
+    // Xóa
     @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+        employeeService.deleteEmployee(id.intValue()); // ✅ ép kiểu sang int
         return "redirect:/employees";
     }
 
-    // Login page
+    // Login
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("loginRequest", new LoginRequest());
@@ -67,7 +67,7 @@ public class EmployeeController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequest req, Model model) {
-        Employee emp = employeeService.login(req.getEmail(), req.getPassword());
+        Employee emp = employeeService.login(req.getUsername(), req.getPassword()); // ✅ sửa getEmail -> getUsername
         if (emp != null) {
             model.addAttribute("employee", emp);
             return "redirect:/books";
