@@ -11,7 +11,7 @@
     <div class="container mt-4" style="max-width:720px;">
         <h2 th:text="${book.id == null ? 'Add Book' : 'Edit Book'}"></h2>
 
-        <form th:action="@{/books/save}" th:object="${book}" method="post">
+        <form th:action="@{save}" th:object="${book}" method="post">
             <input type="hidden" th:if="${book.id != null}" th:field="*{id}" />
             <div class="mb-3">
                 <label class="form-label">Title</label>
@@ -30,7 +30,7 @@
                 <input class="form-control" type="number" th:field="*{quantity}" />
             </div>
             <button class="btn btn-success">Save</button>
-            <a th:href="@{/books}" class="btn btn-secondary">Cancel</a>
+            <a th:href="@{list}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>
