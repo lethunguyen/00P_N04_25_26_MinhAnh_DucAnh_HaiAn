@@ -1,38 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Library Management System</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <title>3A-Library | Trang Chủ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40B7rXfK1b09Y2vF9p4gD4W0bQ2l/3aR4QYvF5P3R5rXbT6z6e0U4O4tBfG1+6Fz1S0J7sQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <style>
+        .text-blue-main { color: #0C4B82; } /* Màu xanh đậm chính */
+        .bg-blue-main { background-color: #0C4B82; }
+        .bg-blue-main:hover { background-color: #08375E; }
+        .text-mint-accent { color: #00BCD4; } /* Màu xanh cyan/mint nhấn */
+        .hover\:bg-mint-accent:hover { background-color: #00BCD4; }
+        .text-blue-dark { color: #1E40AF; } /* Màu xanh tối cho tiêu đề */
+       
+        /* CSS TÙY CHỈNH CAROUSEL */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">📚 Library Management</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/books/list">Books</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/requests/list">Borrow Requests</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/customers/list">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
-                </ul>
+<body class="bg-gray-50 min-h-screen">
+   
+    <div th:replace="fragments/header :: header"></div>
+
+
+    <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+       
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-blue-dark bg-gradient-to-r from-blue-400 via-blue-600 to-blue-500 bg-clip-text text-transparent">
+                Chào mừng đến với 3A-Library!
+            </h1>
+            <p class="text-gray-700 mt-3 mb-12">Khám phá kho tàng ngay bên dưới 👇</p>
+        </div>
+
+
+        <hr class="mb-16 border-gray-200">
+
+
+        <div class="relative max-w-full mb-16">
+            <button id="prevBtn" aria-label="Previous"
+                class="absolute top-1/2 left-2 -translate-y-1/2 bg-blue-main hover:bg-blue-dark text-white rounded-full p-3 z-20 shadow-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next"
+                class="absolute top-1/2 right-2 -translate-y-1/2 bg-blue-main hover:bg-blue-dark text-white rounded-full p-3 z-20 shadow-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+
+            <div id="carousel" class="flex space-x-6 px-6 py-8 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory">
+
+                <!-- 📘 SÁCH DEMO TĨNH HIỂN THỊ LUÔN -->
+                <div class="snap-start flex-shrink-0 w-56 rounded-xl shadow-lg bg-white hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    <img src="https://nhungcuonsachhay.com/wp-content/uploads/2021/04/Toi-thay-hoa-vang-tren-co-xanh.jpg"
+                        alt="Tôi thấy hoa vàng trên cỏ xanh" class="w-full h-64 object-cover rounded-t-xl"/>
+                    <div class="p-4">
+                        <h3 class="text-blue-main font-semibold truncate">Tôi thấy hoa vàng trên cỏ xanh</h3>
+                        <p class="text-gray-700 text-sm">Nguyễn Nhật Ánh</p>
+                        <p class="text-mint-accent font-bold text-lg mt-1">Tuổi thơ và ký ức vùng quê Việt Nam</p>
+                    </div>
+                </div>
+
+                <div class="snap-start flex-shrink-0 w-56 rounded-xl shadow-lg bg-white hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    <img src="https://toplist.vn/images/800px/nha-gia-kim-paulo-coelho-4777.jpg"
+                        alt="Nhà Giả Kim" class="w-full h-64 object-cover rounded-t-xl"/>
+                    <div class="p-4">
+                        <h3 class="text-blue-main font-semibold truncate">Nhà Giả Kim</h3>
+                        <p class="text-gray-700 text-sm">Paulo Coelho</p>
+                        <p class="text-mint-accent font-bold text-lg mt-1">Hành trình phiêu lưu kỳ diệu</p>
+                    </div>
+                </div>
+
+                <div class="snap-start flex-shrink-0 w-56 rounded-xl shadow-lg bg-white hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    <img src="https://tiemsach.org/wp-content/uploads/2023/07/Ebook-Dac-nhan-tam.jpg"
+                        alt="Đắc Nhân Tâm" class="w-full h-64 object-cover rounded-t-xl"/>
+                    <div class="p-4">
+                        <h3 class="text-blue-main font-semibold truncate">Đắc Nhân Tâm</h3>
+                        <p class="text-gray-700 text-sm">Dale Carnegie</p>
+                        <p class="text-mint-accent font-bold text-lg mt-1">Nghệ thuật giao tiếp và lãnh đạo</p>
+                    </div>
+                </div>
+
+                <!-- 📚 SÁCH ĐỘNG TỪ DB -->
+                <div th:each="book : ${books}"
+                    th:onclick="|openModal('${book.id}')|"
+                    class="snap-start flex-shrink-0 w-56 rounded-xl shadow-lg bg-white hover:scale-105 transition-transform duration-300 cursor-pointer">
+
+                    <div th:if="${book.imageUrl}" class="w-full h-64">
+                        <img th:src="${book.imageUrl}" th:alt="${book.name}" class="w-full h-64 object-cover rounded-t-xl" />
+                    </div>
+                    <div th:unless="${book.imageUrl}" class="w-full h-64 bg-blue-100 flex items-center justify-center rounded-t-xl text-blue-400 text-6xl">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+
+                    <div class="p-4">
+                        <h3 th:text="${book.name}" class="text-blue-main font-semibold truncate">Tên Sách</h3>
+                        <p th:text="|Mã: ${book.price}|" class="text-mint-accent font-bold text-lg">Mã: CS101</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div th:each="book : ${books}"
+             th:id="|modal-${book.id}|"
+             class="fixed inset-0 hidden items-center justify-center z-50 bg-black/30 backdrop-blur-sm transition-opacity duration-300">
+           
+            <div th:id="|modal-content-${book.id}|"
+                 class="bg-white rounded-2xl p-6 w-full max-w-md relative transform scale-95 opacity-0 transition-all duration-300 ease-out">
+               
+                <button th:onclick="|closeModal('${book.id}')|"
+                        class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-lg font-bold">&times;</button>
+               
+                <div th:if="${book.imageUrl}" class="w-full h-60">
+                    <img th:src="${book.imageUrl}" th:alt="${book.name}" class="w-full h-60 object-cover rounded-xl mb-4" />
+                </div>
+                <div th:unless="${book.imageUrl}" class="w-full h-60 bg-blue-100 rounded-xl mb-4 flex items-center justify-center text-blue-400 text-8xl">
+                    <i class="fas fa-book-open"></i>
+                </div>
+               
+                <h3 th:text="${book.name}" class="text-2xl font-bold text-blue-main mb-2">Tên Sách</h3>
+                <p th:text="|Mã: ${book.price}|" class="text-mint-accent font-semibold mb-2">Mã tài liệu: CS101</p>
+                <p th:text="${book.description}" class="text-gray-700">Mô tả sách...</p>
             </div>
         </div>
-    </nav>
 
-    <div class="container text-center">
-        <h1 class="mb-4">Welcome to Library Management System</h1>
-        <p class="lead">Manage your books, customers, and borrow requests easily.</p>
 
-        <div class="mt-5">
-            <a href="/books/list" class="btn btn-primary m-2">📖 View Books</a>
-            <a href="/requests/list" class="btn btn-success m-2">📋 Borrow Requests</a>
-            <a href="/customers/list" class="btn btn-warning m-2">👤 Customers</a>
+        <hr class="mb-16 border-gray-200">
+        <div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mb-16">
+            <h2 class="text-xl font-bold text-blue-main mb-2">Quản lý Tài liệu</h2>
+            <p class="text-gray-600 mb-4">Thêm, sửa, xoá sách và tài liệu trong kho sách.</p>
+            <a th:href="@{/admin/books/list}"
+            class="bg-blue-main text-white px-4 py-2 rounded hover:bg-blue-dark transition">
+                Vào quản lý
+            </a>
         </div>
+
+
+        <section class="max-w-7xl mx-auto p-10 bg-white rounded-lg shadow-md mb-20">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <h3 class="text-blue-main text-2xl font-semibold mb-3">Về 3A-Library</h3>
+                    <p class="text-gray-600">Nguồn tri thức đa dạng, dịch vụ thủ thư tận tâm và trải nghiệm tra cứu dễ dàng nhất.</p>
+                </div>
+                <div>
+                    <h3 class="text-blue-main text-2xl font-semibold mb-3">Tính năng nổi bật</h3>
+                    <ul class="text-gray-600 list-disc list-inside space-y-1 text-left inline-block">
+                        <li>Kho sách/tài liệu phong phú, cập nhật liên tục</li>
+                        <li>Hệ thống tra cứu nhanh, mượn trả dễ dàng</li>
+                        <li>Không gian đọc yên tĩnh, thoải mái</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-blue-main text-2xl font-semibold mb-3">Hỗ trợ Độc giả</h3>
+                    <p class="text-gray-600">Đội ngũ thủ thư tư vấn 24/7, luôn sẵn sàng hỗ trợ bạn.</p>
+                    <a href="#" class="inline-block mt-4 px-6 py-2 bg-mint-accent text-white rounded hover:bg-blue-main transition">
+                        Liên hệ ngay
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <footer class="text-center mt-5 text-muted">
-        <p>© 2025 Library Management Demo — Powered by Spring Boot & Thymeleaf</p>
-    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('carousel');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const scrollAmount = 300;
+
+
+            if (prevBtn && nextBtn && carousel) {
+                prevBtn.addEventListener('click', () => {
+                    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+
+
+                nextBtn.addEventListener('click', () => {
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+            }
+        });
+
+
+        // Hàm mở modal, nhận ID của sách
+        function openModal(id) {
+            const modal = document.getElementById('modal-' + id);
+            const content = document.getElementById('modal-content-' + id);
+
+
+            if (modal && content) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+
+
+                setTimeout(() => {
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+
+        // Hàm đóng modal
+        function closeModal(id) {
+            const modal = document.getElementById('modal-' + id);
+            const content = document.getElementById('modal-content-' + id);
+
+
+            if (modal && content) {
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+
+
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
 </body>
 </html>
+

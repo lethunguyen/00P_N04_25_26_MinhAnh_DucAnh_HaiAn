@@ -14,6 +14,9 @@ public class Book {
     private String title;
     private String author;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "publish_year")
     private Integer publishYear;
 
@@ -34,7 +37,9 @@ public class Book {
     public Integer getPublishYear() { return publishYear; }
     public Integer getQuantity() { return quantity; }
     public Integer getBorrowedCount() { return borrowedCount; }
+    public String getImageUrl() { return imageUrl; }
 
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public void setId(Long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setAuthor(String author) { this.author = author; }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -17,39 +19,32 @@ public class BookController {
     // 📚 Danh sách
     @GetMapping("/list")
     public String listBooks(Model model) {
-        model.addAttribute("books", bookService.getAllBooks());
+        List<Book> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
         return "books/list";
     }
 
-    // ➕ Form thêm mới
-    @GetMapping("/new")
-    public String showAddForm(Model model) {
-        model.addAttribute("book", new Book());
-        return "books/form";
-    }
-
-    // ✏️ Form chỉnh sửa
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable int id, Model model) {
-        Book book = bookService.getBookById(id);
-        if (book == null) {
-            return "redirect:/books/list";
-        }
+    // ➕ Form thêm / sửa
+    @GetMapping("/form")
+    public String showForm(@RequestParam(value = "id", required = false) Long id, Model model) {
+        Book book = (id != null) ? bookService.getBookById(id.intValue()) : new Book();
         model.addAttribute("book", book);
-        return "books/form";
+        return "books/form :: form";
     }
 
-    // 💾 Lưu dữ liệu (thêm hoặc sửa)
+    // 💾 Lưu (AJAX)
     @PostMapping("/save")
+    @ResponseBody
     public String saveBook(@ModelAttribute("book") Book book) {
         bookService.saveBook(book);
-        return "redirect:/books/list";
+        return "success";
     }
 
-    // 🗑️ Xóa sách
-    @GetMapping("/delete/{id}")
+    // 🗑️ Xóa
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
     public String deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);
-        return "redirect:/books/list";
+        return "success";
     }
 }
